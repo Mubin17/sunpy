@@ -45,6 +45,7 @@ project = 'sunpy'
 author = 'The SunPy Community'
 copyright = f'{datetime.datetime.now().year}, {author}'
 
+<<<<<<<
 # Register remote data option with doctest
 import doctest
 
@@ -57,6 +58,30 @@ release = __version__
 sunpy_version = Version(__version__)
 is_release = not(sunpy_version.is_prerelease or sunpy_version.is_devrelease)
 
+=======
+import datetime
+
+from packaging.version import Version
+
+# -- Project information -----------------------------------------------------
+
+# The full version, including alpha/beta/rc tags
+from sunpy import __version__
+
+_version = Version(__version__)
+version = release = str(_version)
+# Avoid "post" appearing in version string in rendered docs
+if _version.is_postrelease:
+    version = release = _version.base_version
+# Avoid long githashes in rendered Sphinx docs
+elif _version.is_devrelease:
+    version = release = f"{_version.base_version}.dev{_version.dev}"
+is_development = _version.is_devrelease
+is_release = not(_version.is_prerelease or _version.is_devrelease)
+
+project = "sunpy"
+author = "The SunPy Community"
+>>>>>>>
 # We want to make sure all the following warnings fail the build
 warnings.filterwarnings("error", category=SunpyDeprecationWarning)
 warnings.filterwarnings("error", category=SunpyPendingDeprecationWarning)
@@ -129,7 +154,7 @@ extensions = [
 automodapi_toctreedirnm = "generated/api"
 
 # Add any paths that contain templates here, relative to this directory.
-# templates_path = ["_templates"]
+# templates_path = ["_templates"]  # NOQA: ERA001
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -173,9 +198,16 @@ for line in open('nitpick-exceptions'):
     if line.strip() == "" or line.startswith("#"):
         continue
     dtype, target = line.split(None, 1)
+<<<<<<<
     target = target.strip()
     nitpick_ignore.append((dtype, target))
 
+=======
+master_doc = "index"
+
+# Treat everything in single ` as a Python reference.
+default_role = "py:obj"
+>>>>>>>
 
 # -- Options for intersphinx extension ---------------------------------------
 
@@ -244,6 +276,7 @@ hoverxref_role_types = {
     "ref": "tooltip",  # Would be used by hoverxref_auto_ref if we set it to True
     "term": "tooltip",
 }
+<<<<<<<
 
 # -- Options for HTML output ---------------------------------------------------
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -255,6 +288,30 @@ html_theme = "sunpy"
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ["_static"]
 
+=======
+# a list of builtin themes.
+html_theme = "alabaster"
+
+# Render inheritance diagrams in SVG
+graphviz_output_format = "svg"
+
+graphviz_dot_args = [
+    "-Nfontsize=10",
+    "-Nfontname=Helvetica Neue, Helvetica, Arial, sans-serif",
+    "-Efontsize=10",
+    "-Efontname=Helvetica Neue, Helvetica, Arial, sans-serif",
+    "-Gfontsize=10",
+    "-Gfontname=Helvetica Neue, Helvetica, Arial, sans-serif",
+]
+
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
+# html_static_path = ["_static"]  # NOQA: ERA001
+
+# By default, when rendering docstrings for classes, sphinx.ext.autodoc will
+# make docs with the class-level docstring and the class-method docstrings,
+>>>>>>>
 # Render inheritance diagrams in SVG
 graphviz_output_format = "svg"
 
